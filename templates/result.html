@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>URL</title>
 </head>
 <body>
-$END$
+    <h1>URL Shortener</h1>
+    <p>Original URL: <a href="{{ url_dict.url }}">{{ url_dict.url }}</a></p>
+    <p>Short URL: <a href="{{ url_dict.url }}">{{ url_dict.short_url }}</a></p>
+    <a href="/"><button>Home</button></a>
 </body>
 </html>

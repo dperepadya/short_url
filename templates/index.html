@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>URL</title>
 </head>
 <body>
-$END$
+    <h1>URL Shortener</h1>
+    {% if error %}
+    <p style="color: red;">Error: {{ error }}</p>
+    {% endif %}
+    <form action="/" method="post">
+        <label for="url">Enter an https:// URL:</label>
+        <input type="url" id="url" name="url" placeholder="https://exapmple.com" pattern="https://.*" size="38" value="https://exapmple.com"><br><br>
+        <button type="submit">Submit</button>
+    </form><br>
+    <a href="/"><button>Reset</button></a>
 </body>
 </html>
