@@ -77,3 +77,13 @@ class MongoWorker(RepositoryWorker):
         except PyMongoError as e:
             print(f"Error loading data: {e}")
             return None
+
+    async def count(self, query):
+        try:
+            document = await self.db[self.repository].find_one({'short_url': query})
+            hits_counter = document.get('hits_counter', 0)
+            await self.db[self.repository].update_one({'_id': document['_id']},
+                                                      {'$set': {'hits_counter': hits_counter + 1}})
+        except PyMongoError as e:
+            print(f"Error updating data: {e}")
+            return None

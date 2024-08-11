@@ -39,8 +39,6 @@ async def post_url(request: Request, url: str = Form(...)):
     short_url = get_short_url()
     if not short_url:
         raise HTTPException(status_code=500, detail=f"Cannot get Short url for {url}")
-    # url_map = await storage_worker.load()
-    # url_map[short_url] = url
     url_dict = {"short_url": short_url, "url": url}
     await storage_worker.save(url_dict)
     return templates.TemplateResponse(request=request, name="result.html", context={"url_dict": url_dict})
@@ -50,5 +48,7 @@ async def get_original_url(url: str):
     original_url = await get_original_url_from_db(url)
     if not original_url or not validators.url(original_url):
         raise HTTPException(status_code=404, detail=f"URL {original_url} not found")
+    if STORAGE_TYPE == 2:
+        await storage_worker.count(url)
     return RedirectResponse(url=original_url)
 
